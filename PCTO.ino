@@ -71,7 +71,9 @@ void loop4(){
 void loop5(){
 
  float number = 42.12743578; 
- float result = sqrt(number);
+ float numbertwo = 11.546238;
+ float firstresult = sqrt(number);
+ float secondresult = firstresult / numbertwo;
  delay(1000);
 
 }
