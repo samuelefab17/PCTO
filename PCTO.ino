@@ -1,11 +1,22 @@
 #include <Scheduler.h>
 
-//################### PIN ####################
+//##################### PIN ######################
 
 int pin1 = 4u; //GP 4
 int pin2 = 5u; //GP 5
 int pin3 = 6u; //GP 6 
 int pin4 = 7u; //GP 7
+
+//################## START SERIAL ################
+
+int chose_serial_begin = 1; 
+/* If the value is equal to 0, 9600 will be used,
+while if it is equal to 1, 115200 will be used*/ 
+
+//################### START LOOP #################
+
+int chose_start_loop = 1;
+/*The value represents up to which loop it won't be triggered (value min 1[every loop start], max 6)*/
 
 //#################### LOOP TIME ##################
 
@@ -16,11 +27,16 @@ const int LOOP4_TIME = 100;
 const int LOOP5e6_TIME = 1000;
 
 void setup() {
+  
+  //################# SETUP BEGIN ##################
+  if(chose_serial_begin == 0){
+    Serial.begin(9600);
+  }
+  else if(chose_serial_begin == 1){
+    Serial.begin(115200);
+  }
 
-  Serial.begin(9600);
-  //Serial.begin(115200);
-
-  // Setup the 3 pins as OUTPUT
+  //###### OUTPUT SETUP THE 4 PINS AS OUTPUT ########
   pinMode(pin1, OUTPUT);
   pinMode(pin2, OUTPUT);
   pinMode(pin3, OUTPUT);
@@ -28,18 +44,50 @@ void setup() {
 
 
 
-  // Starting loops
-  Scheduler.startLoop(loop2);
-  Scheduler.startLoop(loop3);
-  Scheduler.startLoop(loop4);
-  Scheduler.startLoop(loop5);
-  Scheduler.startLoop(loop6);
+  // 
+  if(chose_start_loop == 1){
+    Scheduler.startLoop(loop2);
+    Scheduler.startLoop(loop3);
+    Scheduler.startLoop(loop4);
+    Scheduler.startLoop(loop5);
+    Scheduler.startLoop(loop6);
+  }
+  else if(chose_start_loop == 2){
+    Scheduler.startLoop(loop3);
+    Scheduler.startLoop(loop4);
+    Scheduler.startLoop(loop5);
+    Scheduler.startLoop(loop6);
+  }
+    else if(chose_start_loop == 3){
+    Scheduler.startLoop(loop2);
+    Scheduler.startLoop(loop4);
+    Scheduler.startLoop(loop5);
+    Scheduler.startLoop(loop6);
+  }
+    else if(chose_start_loop == 4){
+    Scheduler.startLoop(loop2);
+    Scheduler.startLoop(loop3);
+    Scheduler.startLoop(loop5);
+    Scheduler.startLoop(loop6);
+  }
+    else if(chose_start_loop == 5){
+    Scheduler.startLoop(loop2);
+    Scheduler.startLoop(loop3);
+    Scheduler.startLoop(loop4);
+    Scheduler.startLoop(loop6);
+  }
+    else if(chose_start_loop == 6){
+    Scheduler.startLoop(loop2);
+    Scheduler.startLoop(loop3);
+    Scheduler.startLoop(loop4);
+    Scheduler.startLoop(loop5);
+  }
 
 }
 
 // Task n.1
 void loop() {
-
+  
  digitalWrite(pin1, HIGH);
  delay(LOOP_TIME);
  digitalWrite(pin1, LOW);
@@ -51,8 +99,10 @@ void loop() {
 void loop2() {
 
   digitalWrite(pin2, HIGH);
+  digitalWrite(LED_BUILTIN, HIGH);
   delay(LOOP2_TIME);
   digitalWrite(pin2, LOW);
+  digitalWrite(LED_BUILTIN, HIGH);
   delay(LOOP2_TIME);
 
 }
@@ -61,8 +111,10 @@ void loop2() {
 void loop3() {
 
   digitalWrite(pin3, HIGH);
+  digitalWrite(LED_BUILTIN, HIGH);
   delay(LOOP3_TIME);
   digitalWrite(pin3, LOW);
+  digitalWrite(LED_BUILTIN, LOW);
   delay(LOOP3_TIME);
 
 }
@@ -71,8 +123,10 @@ void loop3() {
 void loop4(){
 
   digitalWrite(pin4, HIGH);
+  digitalWrite(LED_BUILTIN, HIGH);
   delay(LOOP4_TIME);
   digitalWrite(pin4, LOW);
+  digitalWrite(LED_BUILTIN, LOW);
   delay(LOOP4_TIME);
 
 }
@@ -115,5 +169,5 @@ void loop6(){
  delay(LOOP5e6_TIME);
 
  yield();
+ 
 }
-
