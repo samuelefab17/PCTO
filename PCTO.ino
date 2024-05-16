@@ -1,9 +1,19 @@
 #include <Scheduler.h>
 
+//################### PIN ####################
+
 int pin1 = 4u; //GP 4
 int pin2 = 5u; //GP 5
 int pin3 = 6u; //GP 6 
 int pin4 = 7u; //GP 7
+
+//#################### LOOPS TIME ##################
+
+const int LOOP_TIME = 0.1;
+const int LOOP2_TIME = 1;
+const int LOOP3_TIME = 10;
+const int LOOP4_TIME = 100;
+const int LOOP5e6_TIME = 1000;
 
 void setup() {
 
@@ -31,9 +41,9 @@ void setup() {
 void loop() {
 
  digitalWrite(pin1, HIGH);
- delay(0.1);
+ delay(LOOP_TIME);
  digitalWrite(pin1, LOW);
- delay(0.1);
+ delay(LOOP_TIME);
 
 }
 
@@ -41,9 +51,9 @@ void loop() {
 void loop2() {
 
   digitalWrite(pin2, HIGH);
-  delay(1);
+  delay(LOOP2_TIME);
   digitalWrite(pin2, LOW);
-  delay(1);
+  delay(LOOP2_TIME);
 
 }
 
@@ -51,9 +61,9 @@ void loop2() {
 void loop3() {
 
   digitalWrite(pin3, HIGH);
-  delay(10);
+  delay(LOOP3_TIME);
   digitalWrite(pin3, LOW);
-  delay(10);
+  delay(LOOP3_TIME);
 
 }
 
@@ -61,9 +71,9 @@ void loop3() {
 void loop4(){
 
   digitalWrite(pin4, HIGH);
-  delay(100);
+  delay(LOOP4_TIME);
   digitalWrite(pin4, LOW);
-  delay(100);
+  delay(LOOP4_TIME);
 
 }
 
@@ -74,7 +84,7 @@ void loop5(){
  float numbertwo = 11.546238;
  float firstresult = sqrt(number);
  float secondresult = firstresult / numbertwo;
- delay(1000);
+ delay(LOOP5e6_TIME);
 
 }
 
@@ -89,7 +99,7 @@ void loop6(){
  result = (d*l)/y;
 
  Serial.println(result);
- delay(1000);
+ delay(LOOP5e6_TIME);
 
  yield();
 }
