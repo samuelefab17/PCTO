@@ -80,10 +80,14 @@ void loop4(){
 // Task n.5
 void loop5(){
 
- float number = 42.12743578; 
- float numbertwo = 11.546238;
- float firstresult = sqrt(number);
- float secondresult = firstresult / numbertwo;
+ float number1_LOOP5 = random(9999) / 1000.0;
+ float number2_LOOP5 = random(9999) / 1.0;
+ float number3_LOOP5 = random(9999) / 100.0;
+ float number4_LOOP5 = random(9999) / 10.0;
+
+ float result1_LOOP5 = (number1_LOOP5 * number4_LOOP5) / (number2_LOOP5 * number3_LOOP5);
+ float result2_LOOP5 = sqrt(result1_LOOP5);
+
  delay(LOOP5e6_TIME);
 
 }
@@ -91,22 +95,23 @@ void loop5(){
 // Task n.6
 void loop6(){
  
- int number1;
- int number2;
- int number3;
- int number4;
- int result1;
- int result2;
+ int number1_LOOP6;
+ int number2_LOOP6;
+ int number3_LOOP6;
+ int number4_LOOP6;
+ int result1_LOOP6;
+ int result2_LOOP6;
 
- number1 = random(9999);
- number2 = random(9999);
- number3 = random(9999);
- number4 = random(9999);
+ number1_LOOP6 = random(9999);
+ number2_LOOP6 = random(9999);
+ number3_LOOP6 = random(9999);
+ number4_LOOP6 = random(9999);
 
- result1 = (number1 * number3) / number2;
- result2 = sqrt(result1) + number4;
+ result1_LOOP6 = (number1_LOOP6 * number3_LOOP6) / number2_LOOP6;
+ result2_LOOP6 = sqrt(result1_LOOP6) + number4_LOOP6;
 
- Serial.println(result2);
+ Serial.println(result2_LOOP6);
+
  delay(LOOP5e6_TIME);
 
  yield();
