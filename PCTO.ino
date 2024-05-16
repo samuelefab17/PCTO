@@ -20,11 +20,11 @@ int chose_start_loop = 1;
 
 //#################### LOOP TIME ##################
 
-const int LOOP_TIME = 0.1;
-const int LOOP2_TIME = 1;
-const int LOOP3_TIME = 10;
-const int LOOP4_TIME = 100;
-const int LOOP5e6_TIME = 1000;
+const int LOOP_TIME = 0.1;     //Loop time of task n.1
+const int LOOP2_TIME = 1;      //Loop time of task n.2
+const int LOOP3_TIME = 10;     //Loop time of task n.3
+const int LOOP4_TIME = 100;    //Loop time of task n.4
+const int LOOP5e6_TIME = 1000; //Loop time of task n.5 and n.6
 
 void setup() {
   
