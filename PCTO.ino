@@ -36,7 +36,7 @@ void setup() {
     Serial.begin(115200);
   }
 
-  //###### OUTPUT SETUP THE 4 PINS AS OUTPUT ########
+  //######### SETUP THE 4 PINS AS OUTPUT ###########
   pinMode(pin1, OUTPUT);
   pinMode(pin2, OUTPUT);
   pinMode(pin3, OUTPUT);
@@ -44,7 +44,7 @@ void setup() {
 
 
 
-  // 
+  // ################ SETUP LOOP ###################
   if(chose_start_loop == 1){
     Scheduler.startLoop(loop2);
     Scheduler.startLoop(loop3);
@@ -169,5 +169,5 @@ void loop6(){
  delay(LOOP5e6_TIME);
 
  yield();
- 
+
 }
