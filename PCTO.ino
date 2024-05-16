@@ -7,7 +7,7 @@ int pin2 = 5u; //GP 5
 int pin3 = 6u; //GP 6 
 int pin4 = 7u; //GP 7
 
-//#################### LOOPS TIME ##################
+//#################### LOOP TIME ##################
 
 const int LOOP_TIME = 0.1;
 const int LOOP2_TIME = 1;
@@ -91,14 +91,22 @@ void loop5(){
 // Task n.6
 void loop6(){
  
- int d = 60;
- int y = 56;
- int l = 5;
- int result;
+ int number1;
+ int number2;
+ int number3;
+ int number4;
+ int result1;
+ int result2;
 
- result = (d*l)/y;
+ number1 = random(9999);
+ number2 = random(9999);
+ number3 = random(9999);
+ number4 = random(9999);
 
- Serial.println(result);
+ result1 = (number1 * number3) / number2;
+ result2 = sqrt(result1) + number4;
+
+ Serial.println(result2);
  delay(LOOP5e6_TIME);
 
  yield();
