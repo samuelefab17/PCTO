@@ -1,5 +1,5 @@
-#include <Scheduler.h>
 
+#include <Scheduler.h>
 //##################### PIN ######################
 
 int pin1 = 4u; //GP 4
@@ -9,91 +9,76 @@ int pin4 = 7u; //GP 7
 
 //################## START SERIAL ################
 
-int chose_serial_begin = 0; 
-/* If the value is equal to 0, 9600 will be used,
-while if it is equal to 1, 115200 will be used*/ 
+#define BEGIN9600 1
+#define BEGIN115200 0
 
 //################### START LOOP #################
 
-int chose_start_loop = 1;
-/*The value represents up to which loop it won't be triggered 
-(value min 1[All loop start], max 7[All additional loops are inactive])*/
+#define LOOP2 1
+#define LOOP3 1
+#define LOOP4 1
+#define LOOP5 1
+#define LOOP6 1
 
 //#################### LOOP TIME ##################
 
-const int LOOP_TIME = 0.1;     //Loop time of task n.1
-const int LOOP2_TIME = 1;      //Loop time of task n.2
-const int LOOP3_TIME = 10;     //Loop time of task n.3
-const int LOOP4_TIME = 100;    //Loop time of task n.4
-const int LOOP5e6_TIME = 1000; //Loop time of task n.5 and n.6
+//Loop time of task n.1
+#define LOOP_TIME 100      
+//Loop time of task n.2
+#define LOOP2_TIME 100  
+//Loop time of task n.3    
+#define LOOP3_TIME 100      
+//Loop time of task n.4
+#define LOOP4_TIME 100      
+//Loop time of task n.5 and n.6
+#define LOOP5e6_TIME 100    
 
 void setup() {
   
-  //################# SETUP BEGIN ##################
-  if(chose_serial_begin == 0){
-    Serial.begin(9600);
-  }
-  else if(chose_serial_begin == 1){
-    Serial.begin(115200);
-  }
+//######### SETUP THE 4 PINS AS OUTPUT ###########
 
-  //######### SETUP THE 4 PINS AS OUTPUT ###########
   pinMode(pin1, OUTPUT);
   pinMode(pin2, OUTPUT);
   pinMode(pin3, OUTPUT);
   pinMode(pin4, OUTPUT);
-
-
-
-  // ################ SETUP LOOP ###################
-  if(chose_start_loop == 1){
-      Scheduler.startLoop(loop2);
-      Scheduler.startLoop(loop3);
-      Scheduler.startLoop(loop4);
-      Scheduler.startLoop(loop5);
-      Scheduler.startLoop(loop6);
-  }
-  else if(chose_start_loop == 2){
-      Scheduler.startLoop(loop3);
-      Scheduler.startLoop(loop4);
-      Scheduler.startLoop(loop5);
-      Scheduler.startLoop(loop6);
-  }
-    else if(chose_start_loop == 3){
-      Scheduler.startLoop(loop2);
-      Scheduler.startLoop(loop4);
-      Scheduler.startLoop(loop5);
-      Scheduler.startLoop(loop6);
-  }
-    else if(chose_start_loop == 4){
-      Scheduler.startLoop(loop2);
-      Scheduler.startLoop(loop3);
-      Scheduler.startLoop(loop5);
-      Scheduler.startLoop(loop6);
-  }
-    else if(chose_start_loop == 5){
-      Scheduler.startLoop(loop2);
-      Scheduler.startLoop(loop3);
-      Scheduler.startLoop(loop4);
-      Scheduler.startLoop(loop6);
-  }
-    else if(chose_start_loop == 6){
-      Scheduler.startLoop(loop2);
-      Scheduler.startLoop(loop3);
-      Scheduler.startLoop(loop4);
-      Scheduler.startLoop(loop5);
-  }
-    else if(chose_start_loop == 7){
-     //All loops except the main one are inactive
-  }
-
   
+//########### BEGIN ##########
+
+  #if BEGIN9600 == 1
+    Serial.begin(9600);
+  #endif
+
+  #if BEGIN115200 == 1
+    Serial.begin(115200);
+  #endif
+
+//########## LOOP ##########
+
+  #if LOOP2 == 1
+    Scheduler.startLoop(loop2);
+  #endif
+
+  #if LOOP3 == 1
+    Scheduler.startLoop(loop3);
+  #endif
+
+  #if LOOP4 == 1
+    Scheduler.startLoop(loop4);
+  #endif
+
+  #if LOOP5 == 1
+    Scheduler.startLoop(loop5);
+  #endif
+
+  #if LOOP6 == 1
+    Scheduler.startLoop(loop6);
+  #endif
 
 }
 
 // Task n.1
 void loop() {
-  
+
  digitalWrite(pin1, HIGH);
  digitalWrite(LED_BUILTIN, HIGH);
  delay(LOOP_TIME);
@@ -161,16 +146,15 @@ void loop6(){
  int number2_LOOP6;
  int number3_LOOP6;
  int number4_LOOP6;
- int result1_LOOP6;
- int result2_LOOP6;
 
  number1_LOOP6 = random(9999);
  number2_LOOP6 = random(9999);
  number3_LOOP6 = random(9999);
  number4_LOOP6 = random(9999);
-
- result1_LOOP6 = (number1_LOOP6 * number3_LOOP6) / number2_LOOP6;
- result2_LOOP6 = sqrt(result1_LOOP6) + number4_LOOP6;
+    
+  
+ float result1_LOOP6 = (number1_LOOP6 * number3_LOOP6) / number2_LOOP6;
+ float result2_LOOP6 = sqrt(result1_LOOP6) + number4_LOOP6;
 
  Serial.println(result2_LOOP6);
 
