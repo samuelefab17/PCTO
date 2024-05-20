@@ -11,18 +11,19 @@ int pin4 = 7u; //GP 7
 
 #define BEGIN 1
 
-//################### START LOOP #################
+//################## START LOOP #################
 
 #define LOOP2 1
 #define LOOP3 1
 #define LOOP4 1
 #define LOOP5 1
 #define LOOP6 1
+#define LOOP7 1
 
-//#################### LOOP TIME ##################
+//################### LOOP TIME ##################
 
 //Loop time of task n.1
-#define LOOP_TIME 100    
+#define LOOP1_TIME 100    
 //Loop time of task n.2
 #define LOOP2_TIME 100
 //Loop time of task n.3    
@@ -34,6 +35,24 @@ int pin4 = 7u; //GP 7
 //Loop time of task n.6 
 #define LOOP6_TIME 1001   
 
+//############### FUNCTION PIN&LED ###############
+
+void function_pin(int pin, int LOOP_TIME) {
+  digitalWrite(pin, HIGH);
+  delay(LOOP_TIME);
+  digitalWrite(pin, LOW);
+  delay(LOOP_TIME);
+}
+
+void led(int pin_led, int LOOP_TIME_LED){
+  digitalWrite(pin_led, HIGH);
+  delay(LOOP_TIME_LED);
+  digitalWrite(pin_led, LOW);
+  delay(100);
+
+}
+
+//################### SET UP #####################
 void setup() {
   
 //######### SETUP THE 4 PINS AS OUTPUT ###########
@@ -43,7 +62,7 @@ void setup() {
   pinMode(pin3, OUTPUT);
   pinMode(pin4, OUTPUT);
   
-//########### BEGIN ##########
+//##################### BEGIN ####################
 
   #if BEGIN9600 == 0
     Serial.begin(9600);
@@ -53,7 +72,7 @@ void setup() {
     Serial.begin(115200);
   #endif
 
-//########## LOOP ##########
+//##################### LOOP #####################
 
   #if LOOP2 == 1
     Scheduler.startLoop(loop2);
@@ -75,55 +94,41 @@ void setup() {
     Scheduler.startLoop(loop6);
   #endif
 
+  #if LOOP7 == 1
+    Scheduler.startLoop(loop7);
+  #endif
+
+}
+
+void square_generator(int pin, int time, int dutycycle){
+  
 }
 
 // Task n.1
 void loop() {
 
- digitalWrite(pin1, HIGH);
- digitalWrite(LED_BUILTIN, HIGH);
- delay(LOOP_TIME);
- digitalWrite(pin1, LOW);
- digitalWrite(LED_BUILTIN, LOW);
- delay(LOOP_TIME);
-
+  function_pin(pin1, LOOP1_TIME);
 
 }
 
 // Task n.2
 void loop2() {
 
-  digitalWrite(pin2, HIGH);
-  digitalWrite(LED_BUILTIN, HIGH);
-  delay(LOOP2_TIME);
-  digitalWrite(pin2, LOW);
-  digitalWrite(LED_BUILTIN, HIGH);
-  delay(LOOP2_TIME);
+  function_pin(pin2, LOOP2_TIME);
 
 }
 
 // Task n.3
 void loop3() {
 
-  digitalWrite(pin3, HIGH);
-  digitalWrite(LED_BUILTIN, HIGH);
-  delay(LOOP3_TIME);
-  digitalWrite(pin3, LOW);
-  digitalWrite(LED_BUILTIN, LOW);
-  delay(LOOP3_TIME);
+  function_pin(pin3, LOOP3_TIME);
 
 }
 
 // Task n.4
 void loop4(){
 
-  digitalWrite(pin4, HIGH);
-  digitalWrite(LED_BUILTIN, HIGH);
-  delay(LOOP4_TIME);
-  digitalWrite(pin4, LOW);
-  digitalWrite(LED_BUILTIN, LOW);
-  delay(LOOP4_TIME);
-
+  function_pin(pin4, LOOP4_TIME);
 
 }
 
@@ -167,5 +172,12 @@ void loop6(){
  delay(LOOP6_TIME);
 
  yield();
+
+}
+void loop7(){
+
+  led(LED_BUILTIN, 10000);
+
+  yield();
 
 }
