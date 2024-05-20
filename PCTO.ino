@@ -9,8 +9,7 @@ int pin4 = 7u; //GP 7
 
 //################## START SERIAL ################
 
-#define BEGIN9600 1
-#define BEGIN115200 0
+#define BEGIN 1
 
 //################### START LOOP #################
 
@@ -23,15 +22,17 @@ int pin4 = 7u; //GP 7
 //#################### LOOP TIME ##################
 
 //Loop time of task n.1
-#define LOOP_TIME 100      
+#define LOOP_TIME 100    
 //Loop time of task n.2
-#define LOOP2_TIME 100  
+#define LOOP2_TIME 100
 //Loop time of task n.3    
-#define LOOP3_TIME 100      
+#define LOOP3_TIME 100  
 //Loop time of task n.4
 #define LOOP4_TIME 100      
-//Loop time of task n.5 and n.6
-#define LOOP5e6_TIME 100    
+//Loop time of task n.5 
+#define LOOP5_TIME 1000 
+//Loop time of task n.6 
+#define LOOP6_TIME 1001   
 
 void setup() {
   
@@ -44,7 +45,7 @@ void setup() {
   
 //########### BEGIN ##########
 
-  #if BEGIN9600 == 1
+  #if BEGIN9600 == 0
     Serial.begin(9600);
   #endif
 
@@ -86,6 +87,7 @@ void loop() {
  digitalWrite(LED_BUILTIN, LOW);
  delay(LOOP_TIME);
 
+
 }
 
 // Task n.2
@@ -122,6 +124,7 @@ void loop4(){
   digitalWrite(LED_BUILTIN, LOW);
   delay(LOOP4_TIME);
 
+
 }
 
 // Task n.5
@@ -132,10 +135,13 @@ void loop5(){
  float number3_LOOP5 = random(99999) / 10000.0;
  float number4_LOOP5 = random(99999) / 1000.0;
 
- float result1_LOOP5 = (number1_LOOP5 * number4_LOOP5) / (number2_LOOP5 * number3_LOOP5);
- float result2_LOOP5 = sqrt(result1_LOOP5);
+ double result1_LOOP5 = (number1_LOOP5 * number4_LOOP5) / (number2_LOOP5 * number3_LOOP5);
+ double result2_LOOP5 = sqrt(result1_LOOP5);
+ Serial.println(result1_LOOP5);
 
- delay(LOOP5e6_TIME);
+ delay(LOOP5_TIME);
+
+ yield();
 
 }
 
@@ -153,12 +159,12 @@ void loop6(){
  number4_LOOP6 = random(9999);
     
   
- float result1_LOOP6 = (number1_LOOP6 * number3_LOOP6) / number2_LOOP6;
- float result2_LOOP6 = sqrt(result1_LOOP6) + number4_LOOP6;
+ double result1_LOOP6 = (number1_LOOP6 * number3_LOOP6) / number2_LOOP6;
+ double result2_LOOP6 = sqrt(result1_LOOP6) + number4_LOOP6;
 
  Serial.println(result2_LOOP6);
 
- delay(LOOP5e6_TIME);
+ delay(LOOP6_TIME);
 
  yield();
 
