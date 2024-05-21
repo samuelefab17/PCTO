@@ -161,6 +161,8 @@ void loop6(){
    yield();
 
 }
+
+// Task n.7
 void loop7(){
 
    digitalWrite(LED_BUILTIN, HIGH);
