@@ -1,70 +1,50 @@
 
 #include <Scheduler.h>
-//##################### PIN ######################
+#include "Lib.h"
 
  int pin1 = 4u; //GP 4
  int pin2 = 5u; //GP 5
  int pin3 = 6u; //GP 6 
  int pin4 = 7u; //GP 7
 
-//################## START SERIAL ################
-
- #define BEGIN 1
-
-//################## START LOOP #################
+ #define SERIAL_BAUD 9600
+ //#define SERIAL_BAUD 115200
 
  #define LOOP2 1
  #define LOOP3 1
  #define LOOP4 1
  #define LOOP5 1
  #define LOOP6 1
- #define LOOP7 1
+ #define KEEP_ALIVE 1
 
-//################### LOOP TIME ##################
-
-//Loop time of task n.1
- #define LOOP1_TIME 100    
-//Loop time of task n.2
- #define LOOP2_TIME 100
-//Loop time of task n.3    
- #define LOOP3_TIME 100  
-//Loop time of task n.4
- #define LOOP4_TIME 100      
-//Loop time of task n.5 
+ #define LOOP1_TIME 200 //ms
+ #define LOOP2_TIME 200
+ #define LOOP3_TIME 200  
+ #define LOOP4_TIME 200      
  #define LOOP5_TIME 1000 
-//Loop time of task n.6 
  #define LOOP6_TIME 1001   
 
-//################# FUNCTION PIN #################
+ #define DUTY_CYCLE 50 //%
 
-void function_pin(int pin, int LOOP_TIME) {
+void function_pin(int, int, int);
+void function_pin(int pin, int LOOP_TIME, int CYCLE) {
+
+  int LOOP_TIME_DUTY_CYCLE = (LOOP_TIME * CYCLE) / 100;
   digitalWrite(pin, HIGH);
-  delay(LOOP_TIME);
+  delay(LOOP_TIME_DUTY_CYCLE);
   digitalWrite(pin, LOW);
-  delay(LOOP_TIME);
+  delay(LOOP_TIME_DUTY_CYCLE);
+
 }
 
-//################### SET UP #####################
 void setup() {
   
-//######### SETUP THE 4 PINS AS OUTPUT ###########
-
    pinMode(pin1, OUTPUT);
    pinMode(pin2, OUTPUT);
    pinMode(pin3, OUTPUT);
    pinMode(pin4, OUTPUT);
   
-//##################### BEGIN ####################
-
-   #if BEGIN9600 == 0
-     Serial.begin(9600);
-   #endif
-
-   #if BEGIN115200 == 1
-     Serial.begin(115200);
-   #endif
-
-//##################### LOOP #####################
+   Serial.begin(SERIAL_BAUD);
 
    #if LOOP2 == 1
      Scheduler.startLoop(loop2);
@@ -86,8 +66,8 @@ void setup() {
      Scheduler.startLoop(loop6);
    #endif
 
-   #if LOOP7 == 1
-     Scheduler.startLoop(loop7);
+   #if KEEP_ALIVE == 1
+     Scheduler.startLoop(keep_alive);
    #endif
 
 }
@@ -95,28 +75,28 @@ void setup() {
 // Task n.1
 void loop() {
 
-   function_pin(pin1, LOOP1_TIME);
+   function_pin(pin1, LOOP1_TIME, DUTY_CYCLE);
 
 }
 
 // Task n.2
 void loop2() {
 
-   function_pin(pin2, LOOP2_TIME);
+   function_pin(pin2, LOOP2_TIME, DUTY_CYCLE);
 
 }
 
 // Task n.3
 void loop3() {
 
-   function_pin(pin3, LOOP3_TIME);
+   function_pin(pin3, LOOP3_TIME, DUTY_CYCLE);
 
 }
 
 // Task n.4
 void loop4(){
 
-   function_pin(pin4, LOOP4_TIME);
+   function_pin(pin4, LOOP4_TIME, DUTY_CYCLE);
 
 }
 
@@ -163,7 +143,7 @@ void loop6(){
 }
 
 // Task n.7
-void loop7(){
+void keep_alive(){
 
    digitalWrite(LED_BUILTIN, HIGH);
    delay(10000);
